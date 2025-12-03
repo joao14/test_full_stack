@@ -14,6 +14,10 @@ function getAll(): Promise<IUser[]> {
   return UserRepo.getAll();
 }
 
+function getOne(id: number): Promise<IUser | null> {
+  return UserRepo.getOne(id);
+}
+
 /**
  * Add one user.
  */
@@ -59,6 +63,7 @@ async function _delete(id: number): Promise<void> {
 
 export default {
   getAll,
+  getOne,
   addOne,
   updateOne,
   delete: _delete,

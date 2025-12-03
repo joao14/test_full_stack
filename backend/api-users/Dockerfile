@@ -11,7 +11,6 @@ RUN npm install
 
 COPY . .
 
-# Compilar typescript
 RUN npm run build
 
 
@@ -32,5 +31,4 @@ COPY config/.env.development .env
 
 EXPOSE 4000
 
-# Comando final
 CMD ["node", "dist/index.js"]

@@ -10,6 +10,7 @@ const apiRouter = Router();
 const userRouter = Router();
 
 userRouter.get(Paths.Users.Get, UserRoutes.getAll);
+userRouter.get(Paths.Users.GetOne, UserRoutes.getOne);
 userRouter.post(Paths.Users.Add, UserRoutes.add);
 userRouter.put(Paths.Users.Update, UserRoutes.update);
 userRouter.delete(Paths.Users.Delete, UserRoutes.delete);

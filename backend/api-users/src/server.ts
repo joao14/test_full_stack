@@ -1,4 +1,5 @@
 import morgan from 'morgan';
+import cors from "cors";
 import path from 'path';
 import helmet from 'helmet';
 import express, { Request, Response, NextFunction } from 'express';
@@ -16,6 +17,11 @@ import { NodeEnvs } from '@src/common/constants';
 const app = express();
 
 // Basic middleware
+app.use(cors({
+  origin: "http://localhost:3001",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type"],
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

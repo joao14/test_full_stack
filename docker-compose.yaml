@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+
+  backend:
+    build:
+      context: ./backend/api-users
+      dockerfile: Dockerfile
+    container_name: api_users_backend
+    restart: always
+    environment:
+      DB_HOST: localhost
+      DB_USER: root
+      DB_PASSWORD: 123456 
+      DB_NAME: users_app
+      PORT: 4000
+      NODE_ENV: development
+    ports:
+      - "4000:4000"
+
+  frontend:
+    build:
+      context: ./frontend/dashboard-app
+      dockerfile: Dockerfile
+    container_name: users_frontend
+    restart: always
+    environment:
+      API_URL: http://localhost:4000/api
+    ports:
+      - "3001:3000"

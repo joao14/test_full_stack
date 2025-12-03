@@ -21,12 +21,12 @@ const pool = mysql.createPool({
 ******************************************************************************/
 
 /**
- * Get one user by email
+ * Get one user by id
  */
-async function getOne(email: string): Promise<IUser | null> {
+async function getOne(id: number): Promise<IUser | null> {
   const [rows] = await pool.query(
-    "SELECT * FROM users WHERE email = ? LIMIT 1",
-    [email]
+    "SELECT * FROM users WHERE id = ? LIMIT 1",
+    [id]
   );
 
   const result = rows as IUser[];
