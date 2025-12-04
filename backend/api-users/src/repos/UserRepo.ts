@@ -2,10 +2,6 @@ import mysql from "mysql2/promise";
 import ENV from "@src/common/constants/ENV";
 import { IUser } from "@src/models/User";
 
-/******************************************************************************
-                                Database Pool
-******************************************************************************/
-
 const pool = mysql.createPool({
   host: ENV.DbHost,
   user: ENV.DbUser,
@@ -16,13 +12,7 @@ const pool = mysql.createPool({
 });
 
 
-/******************************************************************************
-                                Functions
-******************************************************************************/
 
-/**
- * Get one user by id
- */
 async function getOne(id: number): Promise<IUser | null> {
   const [rows] = await pool.query(
     "SELECT * FROM users WHERE id = ? LIMIT 1",
@@ -33,9 +23,6 @@ async function getOne(id: number): Promise<IUser | null> {
   return result.length > 0 ? result[0] : null;
 }
 
-/**
- * Check if a user ID exists
- */
 async function persists(id: number): Promise<boolean> {
   const [rows] = await pool.query(
     "SELECT id FROM users WHERE id = ?",
@@ -45,17 +32,11 @@ async function persists(id: number): Promise<boolean> {
   return (rows as any[]).length > 0;
 }
 
-/**
- * Get all users
- */
 async function getAll(): Promise<IUser[]> {
   const [rows] = await pool.query("SELECT * FROM users ORDER BY id DESC");
   return rows as IUser[];
 }
 
-/**
- * Add new user
- */
 async function add(user: IUser): Promise<void> {
   await pool.query(
     "INSERT INTO users (name, email) VALUES (?, ?)",
@@ -63,9 +44,6 @@ async function add(user: IUser): Promise<void> {
   );
 }
 
-/**
- * Update user
- */
 async function update(user: IUser): Promise<void> {
   await pool.query(
     "UPDATE users SET name = ?, email = ? WHERE id = ?",
@@ -73,9 +51,6 @@ async function update(user: IUser): Promise<void> {
   );
 }
 
-/**
- * Delete user
- */
 async function delete_(id: number): Promise<void> {
   await pool.query(
     "DELETE FROM users WHERE id = ?",
@@ -83,10 +58,6 @@ async function delete_(id: number): Promise<void> {
   );
 }
 
-
-/******************************************************************************
-                   Unit-test utilities (optional)
-******************************************************************************/
 
 async function deleteAllUsers(): Promise<void> {
   await pool.query("DELETE FROM users");
@@ -110,11 +81,6 @@ async function insertMult(users: IUser[]): Promise<IUser[]> {
 
   return inserted;
 }
-
-
-/******************************************************************************
-                                Export default
-******************************************************************************/
 
 export default {
   getOne,

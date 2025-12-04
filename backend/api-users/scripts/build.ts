@@ -2,10 +2,6 @@ import fs from 'fs-extra';
 import logger from 'jet-logger';
 import childProcess from 'child_process';
 
-
-/**
- * Start
- */
 (async () => {
   try {
     // Remove current build
@@ -26,9 +22,6 @@ import childProcess from 'child_process';
   }
 })();
 
-/**
- * Remove file
- */
 function remove(loc: string): Promise<void> {
   return new Promise((res, rej) => {
     return fs.remove(loc, err => {
@@ -37,9 +30,6 @@ function remove(loc: string): Promise<void> {
   });
 }
 
-/**
- * Copy file.
- */
 function copy(src: string, dest: string): Promise<void> {
   return new Promise((res, rej) => {
     return fs.copy(src, dest, err => {
@@ -48,12 +38,9 @@ function copy(src: string, dest: string): Promise<void> {
   });
 }
 
-/**
- * Do command line command.
- */
 function exec(cmd: string, loc: string): Promise<void> {
   return new Promise((res, rej) => {
-    return childProcess.exec(cmd, {cwd: loc}, (err, stdout, stderr) => {
+    return childProcess.exec(cmd, { cwd: loc }, (err, stdout, stderr) => {
       if (!!stdout) {
         logger.info(stdout);
       }

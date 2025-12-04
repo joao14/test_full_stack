@@ -7,9 +7,6 @@ import { IUser } from '@src/models/User';
 
 export const USER_NOT_FOUND_ERR = 'User not found';
 
-/**
- * Get all users.
- */
 function getAll(): Promise<IUser[]> {
   return UserRepo.getAll();
 }
@@ -18,16 +15,10 @@ function getOne(id: number): Promise<IUser | null> {
   return UserRepo.getOne(id);
 }
 
-/**
- * Add one user.
- */
 function addOne(user: IUser): Promise<void> {
   return UserRepo.add(user);
 }
 
-/**
- * Update one user.
- */
 async function updateOne(user: IUser): Promise<void> {
   if (!user.id) {
     throw new RouteError(
@@ -42,13 +33,9 @@ async function updateOne(user: IUser): Promise<void> {
       USER_NOT_FOUND_ERR,
     );
   }
-  // Return user
   return UserRepo.update(user);
 }
 
-/**
- * Delete a user by their id.
- */
 async function _delete(id: number): Promise<void> {
   const persists = await UserRepo.persists(id);
   if (!persists) {
@@ -57,7 +44,6 @@ async function _delete(id: number): Promise<void> {
       USER_NOT_FOUND_ERR,
     );
   }
-  // Delete user
   return UserRepo.delete(id);
 }
 

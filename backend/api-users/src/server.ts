@@ -16,7 +16,6 @@ import { NodeEnvs } from '@src/common/constants';
 
 const app = express();
 
-// Basic middleware
 app.use(cors({
   origin: "http://localhost:3001",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
@@ -25,12 +24,9 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Show routes called in console during development
 if (ENV.NodeEnv === NodeEnvs.Dev) {
   app.use(morgan('dev'));
 }
-
-// Security
 if (ENV.NodeEnv === NodeEnvs.Production) {
   // eslint-disable-next-line n/no-process-env
   if (!process.env.DISABLE_HELMET) {
@@ -38,10 +34,8 @@ if (ENV.NodeEnv === NodeEnvs.Production) {
   }
 }
 
-// Add APIs, must be after middleware
 app.use(Paths.Base, BaseRouter);
 
-// Add error handler
 app.use((err: Error, _: Request, res: Response, next: NextFunction) => {
   if (ENV.NodeEnv !== NodeEnvs.Test.valueOf()) {
     logger.err(err, true);
